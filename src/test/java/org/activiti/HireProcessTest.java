@@ -106,7 +106,7 @@ public class HireProcessTest {
         // Verify process completed
         Assert.assertEquals(1, historyService.createHistoricProcessInstanceQuery().finished().count());
 
-        System.out.println("执行步骤: send welcome");
+        System.out.println("执行步骤: Send welcome");
 
     }
 
