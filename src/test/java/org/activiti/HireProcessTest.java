@@ -72,6 +72,8 @@ public class HireProcessTest {
                 .singleResult();
         Assert.assertEquals("Telephone interview", task.getName());
 
+        System.out.println("执行步骤: Telephone interview");
+
         // Completing the phone interview with success should trigger two new tasks
         Map<String, Object> taskVariables = new HashMap<String, Object>();
         taskVariables.put("telephoneInterviewOutcome", true);
@@ -83,7 +85,11 @@ public class HireProcessTest {
                 .list();
         Assert.assertEquals(2, tasks.size());
         Assert.assertEquals("Financial negotiation", tasks.get(0).getName());
+        System.out.println("执行步骤: Financial negotiation");
+
         Assert.assertEquals("Tech interview", tasks.get(1).getName());
+        System.out.println("执行步骤: Tech interview");
+
 
         // Completing both should wrap up the subprocess, send out the 'welcome mail' and end the process instance
         taskVariables = new HashMap<String, Object>();
@@ -99,6 +105,8 @@ public class HireProcessTest {
 
         // Verify process completed
         Assert.assertEquals(1, historyService.createHistoricProcessInstanceQuery().finished().count());
+
+        System.out.println("执行步骤: send welcome");
 
     }
 

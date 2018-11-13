@@ -9,4 +9,7 @@ public class ResumeService {
         System.out.println("Storing resume ...");
     }
 
+    public void telephoneInterview() {
+        System.out.println("telephoneInterview ...");
+    }
 }
