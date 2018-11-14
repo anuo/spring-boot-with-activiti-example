@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MyApp.class)
@@ -54,18 +56,34 @@ public class CoreFlowTest {
                 .processInstanceId(coreProcessInstance.getId())
                 .singleResult();
 
+        System.out.println("执行步骤: " + task1.getName());
         taskService.complete(task1.getId());
-        System.out.println("执行步骤:  " + task1.getName());
 
 
         Task task2 = taskService.createTaskQuery()
                 .processInstanceId(coreProcessInstance.getId())
                 .singleResult();
 
+        System.out.println("执行步骤: " + task2.getName());
         taskService.complete(task2.getId());
-        System.out.println("执行步骤:  " + task2.getName());
 
 
+        Task task3 = taskService.createTaskQuery()
+                .processInstanceId(coreProcessInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task3.getName());
+        Map<String, Object> taskVariables = new HashMap<String, Object>();
+        taskVariables.put("RepaymentOutcome", true);
+        taskService.complete(task3.getId(), taskVariables);
+
+
+//        Task task4 = taskService.createTaskQuery()
+//                .processInstanceId(coreProcessInstance.getId())
+//                .singleResult();
+//
+//        System.out.println("执行步骤: " + task4.getName());
+//        taskService.complete(task4.getId());
 
 
     }
