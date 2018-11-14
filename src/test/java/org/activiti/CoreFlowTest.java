@@ -32,9 +32,6 @@ public class CoreFlowTest {
     @Autowired
     private HistoryService historyService;
 
-    @Resource(name = "CoreProcessInstance")
-    private ProcessInstance coreProcessInstance;
-
     private Wiser wiser;
 
     @Before
@@ -51,9 +48,10 @@ public class CoreFlowTest {
 
     @Test
     public void testHappyPath() {
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
 
         Task task1 = taskService.createTaskQuery()
-                .processInstanceId(coreProcessInstance.getId())
+                .processInstanceId(processInstance.getId())
                 .singleResult();
 
         System.out.println("执行步骤: " + task1.getName());
@@ -61,7 +59,7 @@ public class CoreFlowTest {
 
 
         Task task2 = taskService.createTaskQuery()
-                .processInstanceId(coreProcessInstance.getId())
+                .processInstanceId(processInstance.getId())
                 .singleResult();
 
         System.out.println("执行步骤: " + task2.getName());
@@ -69,21 +67,21 @@ public class CoreFlowTest {
 
 
         Task task3 = taskService.createTaskQuery()
-                .processInstanceId(coreProcessInstance.getId())
+                .processInstanceId(processInstance.getId())
                 .singleResult();
 
         System.out.println("执行步骤: " + task3.getName());
         Map<String, Object> taskVariables = new HashMap<String, Object>();
-        taskVariables.put("RepaymentOutcome", true);
+        taskVariables.put("RepaymentOutcome", false);
         taskService.complete(task3.getId(), taskVariables);
 
 
-//        Task task4 = taskService.createTaskQuery()
-//                .processInstanceId(coreProcessInstance.getId())
-//                .singleResult();
-//
-//        System.out.println("执行步骤: " + task4.getName());
-//        taskService.complete(task4.getId());
+        Task task4 = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task4.getName());
+        taskService.complete(task4.getId());
 
 
     }
