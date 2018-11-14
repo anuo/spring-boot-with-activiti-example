@@ -65,16 +65,12 @@ public class CoreFlowTest {
         System.out.println("执行步骤: " + task2.getName());
         taskService.complete(task2.getId());
 
-
         Task task3 = taskService.createTaskQuery()
                 .processInstanceId(processInstance.getId())
                 .singleResult();
 
         System.out.println("执行步骤: " + task3.getName());
-        Map<String, Object> taskVariables = new HashMap<String, Object>();
-        taskVariables.put("RepaymentOutcome", false);
-        taskService.complete(task3.getId(), taskVariables);
-
+        taskService.complete(task3.getId());
 
         Task task4 = taskService.createTaskQuery()
                 .processInstanceId(processInstance.getId())
@@ -82,6 +78,38 @@ public class CoreFlowTest {
 
         System.out.println("执行步骤: " + task4.getName());
         taskService.complete(task4.getId());
+
+        Task task5 = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task5.getName());
+        taskService.complete(task5.getId());
+
+
+        Task task6 = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task6.getName());
+        Map<String, Object> taskVariables = new HashMap<String, Object>();
+        taskVariables.put("RepaymentOutcome", false);
+        taskService.complete(task6.getId(), taskVariables);
+
+
+        Task task7 = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task7.getName());
+        taskService.complete(task7.getId());
+
+        Task task8 = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+
+        System.out.println("执行步骤: " + task8.getName());
+        taskService.complete(task8.getId());
 
 
     }
