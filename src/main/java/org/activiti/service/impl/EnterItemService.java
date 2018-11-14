@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 public class EnterItemService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("进件完成");
 
     }
 }

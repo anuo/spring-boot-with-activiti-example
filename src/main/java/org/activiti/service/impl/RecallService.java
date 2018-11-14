@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 public class RecallService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("催收完成");
 
     }
 }

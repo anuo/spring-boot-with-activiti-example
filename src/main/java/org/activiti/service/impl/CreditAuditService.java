@@ -7,6 +7,5 @@ import org.springframework.stereotype.Service;
 public class CreditAuditService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("信审完成");
     }
 }

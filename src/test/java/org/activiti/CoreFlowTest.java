@@ -15,6 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.subethamail.wiser.Wiser;
 
+import javax.annotation.Resource;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MyApp.class)
 public class CoreFlowTest {
@@ -27,6 +29,9 @@ public class CoreFlowTest {
 
     @Autowired
     private HistoryService historyService;
+
+    @Resource(name = "CoreProcessInstance")
+    private ProcessInstance coreProcessInstance;
 
     private Wiser wiser;
 
@@ -45,11 +50,23 @@ public class CoreFlowTest {
     @Test
     public void testHappyPath() {
 
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
-        Task task = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
+        Task task1 = taskService.createTaskQuery()
+                .processInstanceId(coreProcessInstance.getId())
                 .singleResult();
-        System.out.println("执行步骤:  " + task.getName());
+
+        taskService.complete(task1.getId());
+        System.out.println("执行步骤:  " + task1.getName());
+
+
+        Task task2 = taskService.createTaskQuery()
+                .processInstanceId(coreProcessInstance.getId())
+                .singleResult();
+
+        taskService.complete(task2.getId());
+        System.out.println("执行步骤:  " + task2.getName());
+
+
+
 
     }
 

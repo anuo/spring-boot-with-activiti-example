@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 public class OutBillService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("出账完成");
+        System.out.println("执行步骤: OutBill ");
+
     }
 }

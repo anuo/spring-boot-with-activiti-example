@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 public class MachineAuditService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("机审完成");
+        System.out.println("执行步骤: MachineAudit ");
     }
 }

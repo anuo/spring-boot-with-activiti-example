@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 public class LoanService implements ServiceTask {
     @Override
     public void execute() {
-        System.out.println("放款完成");
+        System.out.println("执行步骤: Loan ");
+
+
     }
 }
