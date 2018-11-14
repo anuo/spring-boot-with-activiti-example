@@ -3,7 +3,10 @@ package org.activiti;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +45,11 @@ public class CoreFlowTest {
     @Test
     public void testHappyPath() {
 
-
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
+        Task task = taskService.createTaskQuery()
+                .processInstanceId(processInstance.getId())
+                .singleResult();
+        System.out.println("执行步骤:  " + task.getName());
 
     }
 
