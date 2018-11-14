@@ -1,5 +1,8 @@
 package org.activiti.service;
 
+import org.activiti.engine.TaskService;
+import org.activiti.engine.runtime.ProcessInstance;
+
 public interface ServiceTask {
-    void execute();
+    boolean execute(ProcessInstance processInstance, TaskService taskService);
 }

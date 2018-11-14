@@ -5,6 +5,11 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.activiti.service.ServiceTask;
+import org.activiti.service.impl.CreditAuditService;
+import org.activiti.service.impl.EnterItemService;
+import org.activiti.service.impl.LoanService;
+import org.activiti.service.impl.MachineAuditService;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,68 +54,24 @@ public class CoreFlowTest {
     @Test
     public void testHappyPath() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
+        boolean result = false;
+        ServiceTask serviceTask = new EnterItemService();
+        result = serviceTask.execute(processInstance, taskService);
+        Assert.assertEquals(true, result);
 
-        Task task1 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
+        serviceTask = new MachineAuditService();
+        result = serviceTask.execute(processInstance, taskService);
 
-        System.out.println("执行步骤: " + task1.getName());
-        taskService.complete(task1.getId());
-
-
-        Task task2 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task2.getName());
-        taskService.complete(task2.getId());
-
-        Task task3 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task3.getName());
-        taskService.complete(task3.getId());
-
-        Task task4 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task4.getName());
-        taskService.complete(task4.getId());
-
-        Task task5 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task5.getName());
-        taskService.complete(task5.getId());
+        Assert.assertEquals(true, result);
 
 
-        Task task6 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
+        serviceTask = new LoanService();
+        result = serviceTask.execute(processInstance, taskService);
+        Assert.assertEquals(true, result);
 
-        System.out.println("执行步骤: " + task6.getName());
-        Map<String, Object> taskVariables = new HashMap<String, Object>();
-        taskVariables.put("RepaymentOutcome", false);
-        taskService.complete(task6.getId(), taskVariables);
-
-
-        Task task7 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task7.getName());
-        taskService.complete(task7.getId());
-
-        Task task8 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task8.getName());
-        taskService.complete(task8.getId());
-
+        serviceTask = new CreditAuditService();
+        result = serviceTask.execute(processInstance, taskService);
+        Assert.assertEquals(true, result);
 
 
     }
