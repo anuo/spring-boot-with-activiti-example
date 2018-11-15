@@ -50,6 +50,7 @@ public class CoreFlowTest {
     public void testHappyPath() {
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
 
+
         Task task1 = taskService.createTaskQuery()
                 .processInstanceId(processInstance.getId())
                 .singleResult();
