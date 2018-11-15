@@ -48,23 +48,25 @@ public class CoreFlowTest {
 
     @Test
     public void testHappyPath() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
+        //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("core_flow");
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId("7506").singleResult();
 
+        System.out.println(processInstance.getId());
 
-        Task task1 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task1.getName());
-        taskService.complete(task1.getId());
-
-
-        Task task2 = taskService.createTaskQuery()
-                .processInstanceId(processInstance.getId())
-                .singleResult();
-
-        System.out.println("执行步骤: " + task2.getName());
-        taskService.complete(task2.getId());
+//        Task task1 = taskService.createTaskQuery()
+//                .processInstanceId(processInstance.getId())
+//                .singleResult();
+//
+//        System.out.println("执行步骤: " + task1.getName());
+//        taskService.complete(task1.getId());
+//
+//
+//        Task task2 = taskService.createTaskQuery()
+//                .processInstanceId(processInstance.getId())
+//                .singleResult();
+//
+//        System.out.println("执行步骤: " + task2.getName());
+//        taskService.complete(task2.getId());
 
 
         Task task3 = taskService.createTaskQuery()
@@ -86,5 +88,6 @@ public class CoreFlowTest {
 
 
     }
+
 
 }
